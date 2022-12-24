@@ -1,0 +1,10 @@
+html { background-color: rgb(37, 37, 37); } 
+
+input {
+    padding: 5px;
+    margin: 10px;
+}
+
+.grand-total::before {
+    content: '$'
+}
