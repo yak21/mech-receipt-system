@@ -1,11 +1,10 @@
-let shopMarkup = 1.33;
+let shopMarkup = 1.45;
 let dClassMarkup = 1;
-let cClassMarkup = 1.2;
-let bClassMarkup = 1.4;
-let aClassMarkup = 1.55;
-let aPlusClassMarkup = 1.75;
-let sClassMarkup = 2;
-let sPlusClassMarkup = 2.3;
+let cClassMarkup = 1.3;
+let bClassMarkup = 1.5;
+let aClassMarkup = 1.95;
+let sClassMarkup = 2.5;
+let sPlusClassMarkup = 2.75;
 
 var grandTotal = 0;
 var totalCount = 0;
@@ -117,9 +116,6 @@ function filterFunction() {
         break;
       case 'A':
         classMarkup = aClassMarkup;
-        break;
-      case 'A+':
-        classMarkup = aPlusClassMarkup;
         break;
       case 'S':
         classMarkup = sClassMarkup;
