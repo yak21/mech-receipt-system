@@ -21,6 +21,7 @@ let partsList = [
     { "Name": "Spare Tire", "Price": "150" },
     { "Name": "Custom Horn", "Price": "100" },
     { "Name": "Xenon Headlights", "Price": "250" },
+    { "Name": "Neons", "Price": "250" },
     { "Name": "Spray", "Price": "50" },
     { "Name": "Spoiler", "Price": "250" },
     { "Name": "Livery", "Price": "450" },
