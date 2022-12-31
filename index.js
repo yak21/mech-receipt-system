@@ -1,5 +1,5 @@
 let shopMarkup = 1.45;
-let dClassMarkup = 1;
+let dClassMarkup = 1.0;
 let cClassMarkup = 1.3;
 let bClassMarkup = 1.5;
 let aClassMarkup = 1.95;
@@ -7,9 +7,10 @@ let sClassMarkup = 2.5;
 let sPlusClassMarkup = 2.75;
 
 var grandTotal = 0;
+var grossTotal = 0;
 var totalCount = 0;
 var vehClass = '';
-var vehClassMarkup = 1;
+var vehClassMarkup = 1.0;
 
 let partsList = [
     { "Name": "Battery", "Price": "100" },
@@ -92,12 +93,14 @@ function filterFunction() {
     $('#dropdownResults').addClass('hidden');
     $('#partSearch').focus();
 
-    totalCount = parseFloat(totalCount) + parseFloat(part.price)
-    console.log(totalCount, grandTotal);
+    totalCount = parseFloat(totalCount) + parseFloat(part.price) // keeping total of parts
 
     let receiptTotal = $(document).find('.grand-total');
+    let grossTotal = $(document).find('.gross-total');
     grandTotal = parseFloat(grandTotal) + parseFloat(part.price) * shopMarkup * vehClassMarkup;
-    receiptTotal.text(grandTotal);
+    grossTotalCost = parseFloat(grandTotal) - parseFloat(totalCount); // total minus part price
+    receiptTotal.text(grandTotal.toFixed(2));
+    grossTotal.text(grossTotalCost.toFixed(2));
   });
 
   $('.classSelect').on('change', function(e) {
@@ -129,8 +132,11 @@ function filterFunction() {
     vehClassMarkup = classMarkup;
 
     let receiptTotal = $(document).find('.grand-total');
+    let grossTotalEl = $(document).find('.gross-total');
     grandTotal = parseFloat(totalCount) * shopMarkup * classMarkup;
-    receiptTotal.text(grandTotal);
+    grossTotal = parseFloat(grandTotal) - parseFloat(totalCount);
+    grossTotalEl.text(grossTotal.toFixed(2));
+    receiptTotal.text(grandTotal.toFixed(2));
   });
 
   $(document).ready(function(){
@@ -147,13 +153,16 @@ function filterFunction() {
       let partSlice = $(this).closest('.partSlice');
       let partPrice = partSlice[0].dataset.price;
       let receiptTotal = $(document).find('.grand-total');
+      let grossTotalEl = $(document).find('.gross-total');
 
-      totalCount = parseFloat(totalCount) - parseFloat(partPrice)
+      totalCount = parseFloat(totalCount) - parseFloat(partPrice) // total cost of parts used
       console.log(totalCount, grandTotal);
 
-
       grandTotal = parseFloat(totalCount) * shopMarkup * vehClassMarkup;
-      receiptTotal.text(grandTotal);
+      grossTotal = parseFloat(grandTotal) - parseFloat(totalCount);
+      grossTotalEl.text(grossTotal.toFixed(2));
+
+      receiptTotal.text(grandTotal.toFixed(2));
       partSlice.remove();
 
       if (resultList.children().length == 0) {

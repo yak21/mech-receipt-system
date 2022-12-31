@@ -8,6 +8,7 @@
     <title>Six Nine Customs</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/b1f2ea0f23.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
@@ -16,7 +17,7 @@
     <div class="main">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <!-- We've used 3xl here, but feel free to try other max-widths based on your needs -->
-        <h1 class="text-4xl text-white mx-auto text-center pt-10 font-mono">Six Nine Checkout Calculator</h1>
+        <h1 class="text-4xl text-white mx-auto text-center pt-10 font-mono">Six Nine Checkout</h1>
           <div class="mx-auto max-w-3xl">
             <!-- Content goes here -->
             <input class="p-2 lg:p-4 mt-12 rounded-lg autofocus min-w-full bg-gray-600 text-white text-2xl text-center font-mono" id="partSearch" type="search" placeholder="Wow what's this?" onkeyup="filterFunction()">
@@ -29,12 +30,12 @@
               <h1 class="text-2xl text-white text-center mt-12 font-mono">Order</h1>
               <p class="date text-white mx-auto text-center py-2 font-mono border-b-[1px]"></p>
 
-              <ul role="list" class="mt-5 divide-y divide-gray-200" id="results"></ul>
+              <ul role="list" class="mt-2 divide-y divide-gray-200" id="results"></ul>
 
               <div class="divide-y">
-                <div class="flex justify-between mt-10">
+                <div class="flex justify-between mt-3">
                   <p class=""></p>
-                  <select class="classSelect bg-gray-800 p-2 rounded-md text-white font-bold font-mono">
+                  <select class="classSelect bg-gray-700 p-2 rounded-md text-white font-bold font-mono">
                     <option value="D">D Class</option>
                     <option value="C">C Class</option>
                     <option value="B">B Class</option>
@@ -46,14 +47,19 @@
               </div>
 
               <div class="divide-y">
-                <div class="flex justify-between mt-6 mb-10">
-                  <h4 class="text-2xl text-white font-mono">
+                <div class="flex justify-between mb-3">
+                  <h4 class="text-2xl text-white font-mono mt-8">
                     Total
                   </h4>
-                  <p class="text-2xl grand-total font-mono text-teal-500"></p>
+                  <p class="text-2xl grand-total font-mono text-teal-200 mt-8"></p>
+                </div>
+                <div class="flex justify-between mb-6">
+                  <h4 class="text-2xl text-white font-mono mt-3">
+                    Gross
+                  </h4>
+                  <p class="text-2xl gross-total font-mono text-green-400 mt-3"></p>
                 </div>
               </div>
-            
             </div>
           </div>
         </div>

@@ -8,3 +8,7 @@ input {
 .grand-total::before {
     content: '$'
 }
+
+.gross-total::before {
+    content: '$'
+}
