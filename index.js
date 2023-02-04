@@ -194,6 +194,11 @@ function filterFunction() {
       return Math.abs(a - b);
     }
 
+    $(document).on('click', '#quantity', function() {
+      $(this).select(); 
+    });
+
+
     $(document).on('change', '#quantity', function() {
       let part = $(this).parent().find('.partPrice');
       let originalQuantity = part.data('quantity');
