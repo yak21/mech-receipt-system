@@ -61,6 +61,10 @@ $.each(partsList, function(key, val) {
     $('#dropdownResults').append('<a class="addPart text-white block text-xl text-center py-3 hover:bg-gray-500 cursor-pointer rounded-md" data-name="' + val['Name'] +'" data-price="' + val['Price'] +'">' + val['Name'] + '<div class="mr-3 float-right inline-flex float items-center rounded-full bg-green-100 px-3 py-0.5 text-sm font-medium text-green-800">$' + val['Price'] + '</div></a>');
 });
 
+$('#reload').click(function() {
+  location.reload();
+});
+
 
 function filterFunction() {
     var input, filter, ul, li, a, i;
@@ -81,13 +85,30 @@ function filterFunction() {
       div.classList.add('hidden');
     }
   }
+
+  function setTotals(grandTotal, gross) {
+    let receiptTotal = $(document).find('.grand-total');
+    let grossTotal = $(document).find('.gross-total');
+
+    receiptTotal.text(grandTotal.toFixed(2));
+    grossTotal.text(gross.toFixed(2));
+  }
+
   $('.addPart').on('click', function(params) {
     let part = params.target.dataset;
     let receipt = $('.receipt');
     let resultList = $('#results');
     receipt.removeClass('hidden');
     
-    resultList.append('<div class="partSlice flex flex-1 flex-col" data-price="'+ part.price +'"><div><div class="flex justify-between mt-2"><h4 class="text-2xl"><a href="#" class="text-white font-mono hover:text-gray-400">' + part.name + '</a></h4><p class="ml-4 text-xl font-mono text-white partPrice">$' + part.price + '</p></div></div><div class="flex flex-1 items-end justify-between mb-3"><div class="ml-4"></div><div class="ml-4"><button type="button" class="removePartFromOrder text-sm font-medium text-indigo-600 hover:text-indigo-500"><span>Remove</span></button></div></div>');
+    resultList.append('<div class="partSlice flex flex-1 flex-col" data-price="'+ 
+    part.price +
+    '"><div><div class="flex flex-row justify-between mt-2"><h4 class="text-2xl"><a href="#" class="text-white font-mono hover:text-gray-400">'
+     + part.name + 
+     '</a></h4><div class="text-right flex"><input class="quantity p-1 mr-3 bg-gray-700 text-white font-mono rounded-md text-center font-semibold" type="number" id="quantity" value="1" name="quantity" min="1" max="10"><p data-quantity="1" data-part-cost="' 
+     + part.price + '" class="inline text-right text-xl font-mono text-white partPrice w-16">'
+     + part.price + '</p></div></div></div><div class="flex flex-1 items-end justify-between mb-3"><div class="ml-4"></div><div class="ml-4"><button type="button" class="removePartFromOrder text-sm font-medium text-indigo-600 hover:text-indigo-500"><span>Remove</span></button></div></div>');
+
+    //  <div class="text-white text-xl mr-3 cursor-pointer select-none px-3 rounded-md font-extrabold bg-gray-700">+</div><div class="bg-gray-700 px-3 rounded-md font-extrabold text-white text-xl mr-3 cursor-pointer select-none">-</div>
 
     $('#partSearch').val('');
     $('#dropdownResults').addClass('hidden');
@@ -95,12 +116,10 @@ function filterFunction() {
 
     totalCount = parseFloat(totalCount) + parseFloat(part.price) // keeping total of parts
 
-    let receiptTotal = $(document).find('.grand-total');
-    let grossTotal = $(document).find('.gross-total');
     grandTotal = parseFloat(grandTotal) + parseFloat(part.price) * shopMarkup * vehClassMarkup;
     grossTotalCost = parseFloat(grandTotal) - parseFloat(totalCount); // total minus part price
-    receiptTotal.text(grandTotal.toFixed(2));
-    grossTotal.text(grossTotalCost.toFixed(2));
+
+    setTotals(grandTotal, grossTotalCost)
   });
 
   $('.classSelect').on('change', function(e) {
@@ -160,15 +179,50 @@ function filterFunction() {
 
       grandTotal = parseFloat(totalCount) * shopMarkup * vehClassMarkup;
       grossTotal = parseFloat(grandTotal) - parseFloat(totalCount);
-      grossTotalEl.text(grossTotal.toFixed(2));
 
-      receiptTotal.text(grandTotal.toFixed(2));
+      setTotals(grandTotal, grossTotal)
       partSlice.remove();
 
       if (resultList.children().length == 0) {
         receipt.addClass('hidden')
         grandTotal = 0;
       }
+    });
+
+    $(document).on('change', '#quantity', function() {
+      let part = $(this).parent().find('.partPrice');
+      let originalQuantity = part.data('quantity');
+      let partPrice = part.data('partCost');
+      let newQuantity = parseFloat($(this).val());
+
+      console.log(newQuantity != 1);
+
+      if (newQuantity !== 1) {
+        var newTotal = partPrice * newQuantity
+        var totalMinusPart = newTotal - partPrice;
+      } else {
+        var newTotal = partPrice;
+        var totalMinusPart = 0;
+      }
+      
+
+      if (originalQuantity < newQuantity) {
+        totalCount = parseFloat(totalCount) + parseFloat(partPrice) // add total of quantity minus one cost of a part
+      } else {
+        totalCount = parseFloat(totalCount) - parseFloat(partPrice) // add total of quantity minus one cost of a part
+      }
+
+      console.log(
+        'totalCount:', totalCount,
+        'totalMinusPart:', totalMinusPart
+      );
+      grandTotal = parseFloat(totalCount) * shopMarkup * vehClassMarkup;
+      grossTotal = parseFloat(grandTotal) - parseFloat(totalCount);
+
+      setTotals(grandTotal, grossTotal)
+      // console.log('wawa', totalCount);
+      part.text(newTotal);
+      part.data('quantity', newQuantity);
     });
 
     const date = new Date();
