@@ -104,7 +104,7 @@ function filterFunction() {
     part.price +
     '"><div><div class="flex flex-row justify-between mt-2"><h4 class="text-2xl"><a href="#" class="text-white font-mono hover:text-gray-400">'
      + part.name + 
-     '</a></h4><div class="text-right flex"><input class="quantity p-1 mr-3 bg-gray-700 text-white font-mono rounded-md text-center font-semibold" type="number" id="quantity" value="1" name="quantity" min="1" max="10"><p data-quantity="1" data-part-cost="' 
+     '</a></h4><div class="text-right flex"><input class="quantity p-1 mr-3 bg-gray-700 text-white font-mono rounded-md text-center font-semibold" type="number" id="quantity" value="1" name="quantity" min="1" max="99"><p data-quantity="1" data-part-cost="' 
      + part.price + '" class="inline text-right text-xl font-mono text-white partPrice w-16">'
      + part.price + '</p></div></div></div><div class="flex flex-1 items-end justify-between mb-3"><div class="ml-4"></div><div class="ml-4"><button type="button" class="removePartFromOrder text-sm font-medium text-indigo-600 hover:text-indigo-500"><span>Remove</span></button></div></div>');
 
@@ -175,7 +175,7 @@ function filterFunction() {
       let grossTotalEl = $(document).find('.gross-total');
 
       totalCount = parseFloat(totalCount) - parseFloat(partPrice) // total cost of parts used
-      console.log(totalCount, grandTotal);
+      // console.log(totalCount, grandTotal);
 
       grandTotal = parseFloat(totalCount) * shopMarkup * vehClassMarkup;
       grossTotal = parseFloat(grandTotal) - parseFloat(totalCount);
@@ -186,8 +186,13 @@ function filterFunction() {
       if (resultList.children().length == 0) {
         receipt.addClass('hidden')
         grandTotal = 0;
+        totalCount = 0;
       }
     });
+
+    function getDifference(a, b) {
+      return Math.abs(a - b);
+    }
 
     $(document).on('change', '#quantity', function() {
       let part = $(this).parent().find('.partPrice');
@@ -195,27 +200,25 @@ function filterFunction() {
       let partPrice = part.data('partCost');
       let newQuantity = parseFloat($(this).val());
 
-      console.log(newQuantity != 1);
-
       if (newQuantity !== 1) {
         var newTotal = partPrice * newQuantity
         var totalMinusPart = newTotal - partPrice;
       } else {
         var newTotal = partPrice;
-        var totalMinusPart = 0;
       }
       
+      let difference = getDifference(originalQuantity, newQuantity)
 
       if (originalQuantity < newQuantity) {
-        totalCount = parseFloat(totalCount) + parseFloat(partPrice) // add total of quantity minus one cost of a part
+        totalCount = parseFloat(totalCount) + parseFloat(partPrice) * difference // add total of quantity minus one cost of a part
       } else {
-        totalCount = parseFloat(totalCount) - parseFloat(partPrice) // add total of quantity minus one cost of a part
+        totalCount = parseFloat(totalCount) - parseFloat(partPrice) * difference // add total of quantity minus one cost of a part
       }
 
-      console.log(
-        'totalCount:', totalCount,
-        'totalMinusPart:', totalMinusPart
-      );
+      // console.log(
+      //   'totalCount:', totalCount,
+      //   'totalMinusPart:', totalMinusPart
+      // );
       grandTotal = parseFloat(totalCount) * shopMarkup * vehClassMarkup;
       grossTotal = parseFloat(grandTotal) - parseFloat(totalCount);
 
