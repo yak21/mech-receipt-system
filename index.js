@@ -54,9 +54,9 @@ let partsList = [
     { "Name": "Tier 1 Engine", "Price": "450" },
     { "Name": "Tier 2 Engine", "Price": "750" },
     { "Name": "Tier 3 Engine", "Price": "1150" },
-    { "Name": "Iron", "Price": "30" },
-    { "Name": "Plastic", "Price": "30" },
-    { "Name": "Steel", "Price": "30" },
+    { "Name": "Iron", "Price": "20" },
+    { "Name": "Plastic", "Price": "20" },
+    { "Name": "Steel", "Price": "20" },
 ];
 
 $.each(partsList, function(key, val) {
