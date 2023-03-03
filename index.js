@@ -105,7 +105,7 @@ function filterFunction() {
     
     resultList.append('<div class="partSlice flex flex-1 flex-col" data-price="'+ 
     part.price +
-    '"><div><div class="flex flex-row justify-between mt-2"><h4 class="text-2xl"><a href="#" class="text-white font-mono hover:text-gray-400">'
+    '"><div><div class="flex flex-row justify-between mt-2"><h4 class="text-xl md:text-2xl"><a href="#" class="text-white font-mono hover:text-gray-400">'
      + part.name + 
      '</a></h4><div class="text-right flex"><input class="quantity p-1 mr-3 bg-gray-700 text-white font-mono rounded-md text-center font-semibold" type="number" id="quantity" value="1" name="quantity" min="1" max="99"><p data-quantity="1" data-part-cost="' 
      + part.price + '" class="inline text-right text-xl font-mono text-white partPrice w-16">'
@@ -238,7 +238,7 @@ function filterFunction() {
 
     const date = new Date();
 
-    $(document).find('.date').text(date);
+    $(document).find('.date').text(date.toUTCString());
 });
 
 

@@ -1,1 +1,1 @@
-# mech-reciept-system
+# mech-receipt-system
