@@ -122,7 +122,7 @@ function filterFunction() {
     grandTotal = parseFloat(grandTotal) + parseFloat(part.price) * shopMarkup * vehClassMarkup;
     grossTotalCost = parseFloat(grandTotal) - parseFloat(totalCount); // total minus part price
 
-    setTotals(grandTotal, grossTotalCost)
+    setTotals(Math.round(grandTotal), grossTotalCost)
   });
 
   $('.classSelect').on('change', function(e) {
@@ -155,7 +155,7 @@ function filterFunction() {
 
     let receiptTotal = $(document).find('.grand-total');
     let grossTotalEl = $(document).find('.gross-total');
-    grandTotal = parseFloat(totalCount) * shopMarkup * classMarkup;
+    grandTotal = Math.round(parseFloat(totalCount) * shopMarkup * classMarkup);
     grossTotal = parseFloat(grandTotal) - parseFloat(totalCount);
     grossTotalEl.text(grossTotal.toFixed(2));
     receiptTotal.text(grandTotal.toFixed(2));
@@ -227,7 +227,7 @@ function filterFunction() {
       //   'totalCount:', totalCount,
       //   'totalMinusPart:', totalMinusPart
       // );
-      grandTotal = parseFloat(totalCount) * shopMarkup * vehClassMarkup;
+      grandTotal = Math.round(parseFloat(totalCount) * shopMarkup * vehClassMarkup);
       grossTotal = parseFloat(grandTotal) - parseFloat(totalCount);
 
       setTotals(grandTotal, grossTotal)
