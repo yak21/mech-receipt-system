@@ -18,7 +18,7 @@ let partsList = [
     { "Name": "Oil", "Price": "50" },
     { "Name": "Spark plugs", "Price": "75", },
     { "Name": "Tint", "Price": "300" },
-    { "Name": "Cleaning kit", "Price": "50" },
+    { "Name": "Cleaning kit", "Price": "15" },
     { "Name": "Spare Tire", "Price": "150" },
     { "Name": "Custom Horn", "Price": "100" },
     { "Name": "Xenon Headlights", "Price": "250" },
@@ -54,9 +54,10 @@ let partsList = [
     { "Name": "Tier 1 Engine", "Price": "450" },
     { "Name": "Tier 2 Engine", "Price": "750" },
     { "Name": "Tier 3 Engine", "Price": "1150" },
-    { "Name": "Iron", "Price": "20" },
-    { "Name": "Plastic", "Price": "20" },
-    { "Name": "Steel", "Price": "20" },
+    { "Name": "Repair Kit", "Price": "250" },
+    { "Name": "Iron", "Price": "15" },
+    { "Name": "Plastic", "Price": "15" },
+    { "Name": "Steel", "Price": "15" },
 ];
 
 $.each(partsList, function(key, val) {
